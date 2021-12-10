@@ -45,7 +45,8 @@ const ExpenseForm = (props) => {
     const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
-      date: new Date(enteredDate),
+      //Fix de la fecha, cuando entrega un dia anterior
+      date: new Date(enteredDate + 'T00:00'),
     };
 
     props.onSaveExpenseData(expenseData);
