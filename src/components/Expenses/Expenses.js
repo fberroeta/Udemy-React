@@ -15,21 +15,42 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
+  let expensesContent = <p>No hay gastos encontrados.</p>;
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => (
+      <ExpenseItem
+        //se puede agregar key a cualquier componente par ayudar a react a identificar elementos unicos
+        key={expense.id}
+        title={expense.title}
+        amount={expense.amount}
+        date={expense.date}
+      />
+    ));
+  }
   return (
     <Card className="expenses">
       <ExpensesFilter
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      {filteredExpenses.map((expense) => (
-        <ExpenseItem
-          //se puede agregar key a cualquier componente par ayudar a react a identificar elementos unicos
-          key={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          date={expense.date}
-        />
-      ))}
+      {/* 3-Forma mas legible y limpia de hacerlo */}
+      {expensesContent}
+
+      {/* 1- expresion de javascript de comparacion */}
+      {/* {filteredExpenses.length === 0 ? (
+        <p>No hay gastos encontrados.</p>
+      ) : (
+        filteredExpenses.map((expense) => (
+          <ExpenseItem
+            //se puede agregar key a cualquier componente par ayudar a react a identificar elementos unicos
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        )) 
+      )} */}
     </Card>
   );
 };
