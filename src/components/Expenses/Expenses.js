@@ -3,6 +3,7 @@ import Card from '../UI/Card';
 import ExpenseItem from './ExpenseItem';
 import './Expenses.css';
 import ExpensesFilter from './ExpensesFilter';
+import ExpensesList from './ExpensesList';
 
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState('2020');
@@ -15,27 +16,15 @@ const Expenses = (props) => {
     return expense.date.getFullYear().toString() === filteredYear;
   });
 
-  let expensesContent = <p>No hay gastos encontrados.</p>;
-
-  if (filteredExpenses.length > 0) {
-    expensesContent = filteredExpenses.map((expense) => (
-      <ExpenseItem
-        //se puede agregar key a cualquier componente par ayudar a react a identificar elementos unicos
-        key={expense.id}
-        title={expense.title}
-        amount={expense.amount}
-        date={expense.date}
-      />
-    ));
-  }
   return (
     <Card className="expenses">
       <ExpensesFilter
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
+      <ExpensesList items={filteredExpenses} />
       {/* 3-Forma mas legible y limpia de hacerlo */}
-      {expensesContent}
+      {/* {expensesContent} */}
 
       {/* 1- expresion de javascript de comparacion */}
       {/* {filteredExpenses.length === 0 ? (
